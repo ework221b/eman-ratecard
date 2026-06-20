@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rate Card — Eman Firmansyah · Industrial Automation Freelancer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #0B0F1A; color: #F0EDE6; min-height: 100vh; padding: 0 0 80px; line-height: 1.6; }
+
+  .rc-nav { display: flex; justify-content: space-between; align-items: center; padding: 28px 48px; border-bottom: 0.5px solid rgba(240,237,230,0.1); }
+  .rc-logo { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #F5A623; letter-spacing: 0.08em; }
+  .rc-nav-links { display: flex; gap: 32px; list-style: none; }
+  .rc-nav-links a { font-size: 13px; color: rgba(240,237,230,0.55); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+  .rc-nav-links a:hover { color: #F0EDE6; }
+  .rc-nav-links a.rc-active { color: #F5A623; }
+
+  .rc-hero { padding: 64px 48px 48px; max-width: 920px; }
+  .rc-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #F5A623; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+  .rc-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: #F5A623; }
+  .rc-title { font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; color: #F0EDE6; margin-bottom: 8px; }
+  .rc-subtitle { font-size: 16px; color: rgba(240,237,230,0.65); margin-top: 20px; max-width: 600px; line-height: 1.75; }
+  .rc-meta-row { display: flex; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
+  .rc-meta { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: rgba(240,237,230,0.45); }
+  .rc-meta-val { color: #F0EDE6; }
+
+  .rc-section { padding: 48px 48px 0; }
+  .rc-section-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(240,237,230,0.35); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 28px; display: flex; align-items: center; gap: 16px; }
+  .rc-section-label::after { content: ''; flex: 1; height: 0.5px; background: rgba(240,237,230,0.1); }
+
+  .rc-table-wrap { overflow-x: auto; border: 0.5px solid rgba(240,237,230,0.1); border-radius: 8px; }
+  .rc-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .rc-table th { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(240,237,230,0.4); letter-spacing: 0.1em; text-transform: uppercase; text-align: left; padding: 14px 20px; border-bottom: 0.5px solid rgba(240,237,230,0.1); font-weight: 400; }
+  .rc-table td { padding: 14px 20px; border-bottom: 0.5px solid rgba(240,237,230,0.06); color: rgba(240,237,230,0.75); }
+  .rc-table tr:last-child td { border-bottom: none; }
+  .rc-table tr:hover td { background: rgba(245,166,35,0.04); }
+  .rc-table td.rc-rate { font-family: 'JetBrains Mono', monospace; color: #F5A623; font-weight: 500; white-space: nowrap; }
+  .rc-table td.rc-service { font-weight: 500; color: #F0EDE6; }
+  .rc-table td.rc-notes { font-size: 12px; color: rgba(240,237,230,0.45); }
+
+  .rc-grids { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .rc-card { background: rgba(240,237,230,0.04); border: 0.5px solid rgba(240,237,230,0.1); border-radius: 8px; padding: 24px 28px; }
+  .rc-card-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: #F0EDE6; margin-bottom: 16px; }
+  .rc-card-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 0.5px solid rgba(240,237,230,0.06); }
+  .rc-card-item:last-child { border-bottom: none; }
+  .rc-card-item-label { font-size: 13px; color: rgba(240,237,230,0.6); }
+  .rc-card-item-value { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #F5A623; font-weight: 500; }
+  .rc-card-note { font-size: 11px; color: rgba(240,237,230,0.35); margin-top: 14px; font-family: 'JetBrains Mono', monospace; line-height: 1.5; }
+
+  .rc-included { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .rc-included-col h3 { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px; }
+  .rc-included-col.rc-yes h3 { color: #4ade80; }
+  .rc-included-col.rc-no h3 { color: #f87171; }
+  .rc-included ul { list-style: none; }
+  .rc-included li { font-size: 13px; color: rgba(240,237,230,0.6); padding: 6px 0; display: flex; align-items: flex-start; gap: 10px; }
+  .rc-included li::before { content: ''; display: block; width: 4px; height: 4px; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
+  .rc-included-col.rc-yes li::before { background: #4ade80; }
+  .rc-included-col.rc-no li::before { background: #f87171; }
+
+  .rc-cta { margin-top: 56px; padding: 40px 48px; border-top: 0.5px solid rgba(240,237,230,0.1); display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; }
+  .rc-cta-text { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #F0EDE6; line-height: 1.2; }
+  .rc-cta-text em { font-style: italic; font-weight: 400; color: rgba(240,237,230,0.5); }
+  .rc-cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .rc-btn-primary { background: #F5A623; color: #0B0F1A; padding: 13px 28px; border: none; border-radius: 4px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; letter-spacing: 0.02em; transition: background 0.2s; text-decoration: none; display: inline-flex; align-items: center; }
+  .rc-btn-primary:hover { background: #e09820; }
+  .rc-btn-ghost { background: none; border: 0.5px solid rgba(240,237,230,0.25); color: rgba(240,237,230,0.75); padding: 13px 28px; border-radius: 4px; font-family: 'Inter', sans-serif; font-size: 14px; cursor: pointer; letter-spacing: 0.02em; transition: border-color 0.2s, color 0.2s; text-decoration: none; display: inline-flex; align-items: center; }
+  .rc-btn-ghost:hover { border-color: rgba(240,237,230,0.6); color: #F0EDE6; }
+
+  .rc-footer { padding: 32px 48px 0; display: flex; justify-content: space-between; align-items: center; }
+  .rc-footer-link { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(240,237,230,0.3); text-decoration: none; transition: color 0.2s; }
+  .rc-footer-link:hover { color: #F5A623; }
+  .rc-footer-note { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(240,237,230,0.2); }
+
+  @media (max-width: 768px) {
+    .rc-nav { padding: 20px 24px; }
+    .rc-hero { padding: 40px 24px 32px; }
+    .rc-title { font-size: 38px; }
+    .rc-section { padding: 32px 24px 0; }
+    .rc-grids { grid-template-columns: 1fr; }
+    .rc-included { grid-template-columns: 1fr; }
+    .rc-cta { flex-direction: column; padding: 32px 24px; align-items: flex-start; }
+    .rc-cta-text { font-size: 22px; }
+    .rc-footer { flex-direction: column; gap: 12px; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="rc-nav">
+  <div class="rc-logo">Eman Firmansyah</div>
+  <ul class="rc-nav-links">
+    <li><a href="#daily">Daily rates</a></li>
+    <li><a href="#hourly">Hourly rates</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#terms">Terms</a></li>
+    <li><a href="https://ework221b.github.io/eman-portfolio/" target="_blank" style="color:#F5A623">Portfolio ↗</a></li>
+  </ul>
+</nav>
+
+<section class="rc-hero">
+  <div class="rc-eyebrow">Freelance Rate Card · Industrial Automation</div>
+  <h1 class="rc-title">Transparent pricing<br>for control system work.</h1>
+  <p class="rc-subtitle">No hidden fees, no scope surprises. Fixed daily and project rates for PLC programming, SCADA design, commissioning, and training. All rates in USD — adjust for your region.</p>
+  <div class="rc-meta-row">
+    <div class="rc-meta">Effective: <span class="rc-meta-val">June 2026</span></div>
+    <div class="rc-meta">Exchange: <span class="rc-meta-val">1 USD = 17,881 IDR</span></div>
+    <div class="rc-meta">Minimum: <span class="rc-meta-val">1 day engagement</span></div>
+  </div>
+</section>
+
+<section class="rc-section" id="daily">
+  <div class="rc-section-label">Daily rates</div>
+  <div class="rc-table-wrap">
+    <table class="rc-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>USD / day</th>
+          <th>IDR / day</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="rc-service">PLC Programming</td>
+          <td class="rc-rate">$84 – $112</td>
+          <td>Rp 1,500,000 – 2,000,000</td>
+          <td class="rc-notes">SIMATIC S7, PCS7, TIA Portal. Complexity-dependent.</td>
+        </tr>
+        <tr>
+          <td class="rc-service">SCADA / HMI Design</td>
+          <td class="rc-rate">$84 – $112</td>
+          <td>Rp 1,500,000 – 2,000,000</td>
+          <td class="rc-notes">WinCC, ClearSCADA, Vijeo. Per-screen or per-project.</td>
+        </tr>
+        <tr>
+          <td class="rc-service">Commissioning (FAT/SAT)</td>
+          <td class="rc-rate">$112 – $168</td>
+          <td>Rp 2,000,000 – 3,000,000</td>
+          <td class="rc-notes">On-site, includes travel within Jakarta metro.</td>
+        </tr>
+        <tr>
+          <td class="rc-service">Technical Training</td>
+          <td class="rc-rate">$112 – $196</td>
+          <td>Rp 2,000,000 – 3,500,000</td>
+          <td class="rc-notes">Per session (half-day or full-day). Materials included.</td>
+        </tr>
+        <tr>
+          <td class="rc-service">Panel Design / E&I</td>
+          <td class="rc-rate">$67 – $101</td>
+          <td>Rp 1,200,000 – 1,800,000</td>
+          <td class="rc-notes">Design only. Complexity-dependent.</td>
+        </tr>
+        <tr>
+          <td class="rc-service">System Integration</td>
+          <td class="rc-rate">$112 – $168</td>
+          <td>Rp 2,000,000 – 3,000,000</td>
+          <td class="rc-notes">PLC + SCADA + HMI full integration.</td>
+        </tr>
+        <tr>
+          <td class="rc-service">Consulting / Advisory</td>
+          <td class="rc-rate">$56 – $84</td>
+          <td>Rp 1,000,000 – 1,500,000</td>
+          <td class="rc-notes">Remote consultation, troubleshooting guidance.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="rc-section" id="hourly">
+  <div class="rc-section-label">Platform hourly rates</div>
+  <div class="rc-table-wrap">
+    <table class="rc-table">
+      <thead>
+        <tr>
+          <th>Platform</th>
+          <th>Hourly Rate</th>
+          <th>Effective (after fees)</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="rc-service">Upwork</td>
+          <td class="rc-rate">$30/hr</td>
+          <td>~$24/hr (after 20% fee)</td>
+          <td class="rc-notes">Profile rate. Increases as reviews grow. Min budget: $100.</td>
+        </tr>
+        <tr>
+          <td class="rc-service">Freelancer.com</td>
+          <td class="rc-rate">$25 – $35/hr</td>
+          <td>Varies</td>
+          <td class="rc-notes">Bid per project. Adjust based on scope.</td>
+        </tr>
+        <tr>
+          <td class="rc-service">Direct (Indonesia)</td>
+          <td class="rc-rate">$14 – $28/hr</td>
+          <td>$14 – $28/hr (no fee)</td>
+          <td class="rc-notes">Rp 250K – 500K/hr. Bank transfer (BCA/Mandiri).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="rc-section" id="projects">
+  <div class="rc-section-label">Project-based pricing</div>
+  <div class="rc-table-wrap">
+    <table class="rc-table">
+      <thead>
+        <tr>
+          <th>Project Type</th>
+          <th>USD Range</th>
+          <th>IDR Range</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="rc-service">PLC program (simple, &lt;500 I/O)</td>
+          <td class="rc-rate">$168 – $280</td>
+          <td>Rp 3,000,000 – 5,000,000</td>
+        </tr>
+        <tr>
+          <td class="rc-service">PLC program (complex, &gt;500 I/O)</td>
+          <td class="rc-rate">$280 – $840</td>
+          <td>Rp 5,000,000 – 15,000,000</td>
+        </tr>
+        <tr>
+          <td class="rc-service">SCADA system (small, &lt;50 screens)</td>
+          <td class="rc-rate">$280 – $560</td>
+          <td>Rp 5,000,000 – 10,000,000</td>
+        </tr>
+        <tr>
+          <td class="rc-service">SCADA system (large, &gt;50 screens)</td>
+          <td class="rc-rate">$560 – $1,400</td>
+          <td>Rp 10,000,000 – 25,000,000</td>
+        </tr>
+        <tr>
+          <td class="rc-service">FAT / SAT commissioning</td>
+          <td class="rc-rate">$280 – $840</td>
+          <td>Rp 5,000,000 – 15,000,000</td>
+        </tr>
+        <tr>
+          <td class="rc-service">Training course (per session)</td>
+          <td class="rc-rate">$112 – $196</td>
+          <td>Rp 2,000,000 – 3,500,000</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="rc-section" id="terms">
+  <div class="rc-section-label">Payment terms</div>
+  <div class="rc-grids">
+    <div class="rc-card">
+      <div class="rc-card-title">Milestone-Based</div>
+      <div class="rc-card-item">
+        <span class="rc-card-item-label">Upfront</span>
+        <span class="rc-card-item-value">30%</span>
+      </div>
+      <div class="rc-card-item">
+        <span class="rc-card-item-label">Mid-project</span>
+        <span class="rc-card-item-value">40%</span>
+      </div>
+      <div class="rc-card-item">
+        <span class="rc-card-item-label">On delivery</span>
+        <span class="rc-card-item-value">30%</span>
+      </div>
+      <div class="rc-card-note">Preferred for projects &gt; $500</div>
+    </div>
+    <div class="rc-card">
+      <div class="rc-card-title">Hourly</div>
+      <div class="rc-card-item">
+        <span class="rc-card-item-label">Invoicing</span>
+        <span class="rc-card-item-value">Weekly</span>
+      </div>
+      <div class="rc-card-item">
+        <span class="rc-card-item-label">Payment window</span>
+        <span class="rc-card-item-value">7 days</span>
+      </div>
+      <div class="rc-card-item">
+        <span class="rc-card-item-label">Escrow</span>
+        <span class="rc-card-item-value">Required (new clients)</span>
+      </div>
+      <div class="rc-card-note">Upwork/Freelancer escrow preferred</div>
+    </div>
+  </div>
+</section>
+
+<section class="rc-section">
+  <div class="rc-section-label">What is included — and what is not</div>
+  <div class="rc-included">
+    <div class="rc-included-col rc-yes">
+      <h3>✓ Included</h3>
+      <ul>
+        <li>Professional documentation (P&IDs, I/O lists, test reports)</li>
+        <li>Source code with comments</li>
+        <li>30-day post-delivery bug fix support</li>
+        <li>Technical handover session</li>
+      </ul>
+    </div>
+    <div class="rc-included-col rc-no">
+      <h3>✗ Not included</h3>
+      <ul>
+        <li>Hardware procurement</li>
+        <li>Travel expenses outside Jakarta metro (billed separately)</li>
+        <li>Extended support beyond 30 days (available at consulting rate)</li>
+        <li>Software licenses (client must provide)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="rc-cta">
+  <div class="rc-cta-text">
+    Have a project in mind?<br><em>Let us talk scope and timeline.</em>
+  </div>
+  <div class="rc-cta-actions">
+    <a class="rc-btn-primary" href="mailto:emanfirmansyah@hotmail.co.id?subject=Project%20Inquiry%20-%20Rate%20Card">Email me ↗</a>
+    <a class="rc-btn-ghost" href="https://www.upwork.com/freelancers/~0130f70a5c07b86038?mp_source=share" target="_blank">Hire on Upwork</a>
+  </div>
+</div>
+
+<div class="rc-footer">
+  <a class="rc-footer-link" href="https://ework221b.github.io/eman-portfolio/" target="_blank">← Back to portfolio</a>
+  <span class="rc-footer-note">Rates effective June 2026 · Subject to change based on scope</span>
+</div>
+
+</body>
+</html>
